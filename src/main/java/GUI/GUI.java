@@ -11,8 +11,8 @@ import java.io.IOException;
 public class GUI {
 
     public JFrame frame;
-    private int width = 800;
-    private int height = 600;
+    private int width = 780;
+    private int height = 700;
     private Font font = new Font("Proxima Nova", Font.PLAIN, 16);
 
     public GUI() { frame = new JFrame(); }
@@ -47,11 +47,11 @@ public class GUI {
 
         JButton sendRequest = new JButton("Send");
         sendRequest.setSize(75, 35);
-        sendRequest.setLocation(700, 10);
+        sendRequest.setLocation(690, 10);
         frame.add(sendRequest);
 
         JLabel responseText = new JLabel("Response:");
-        responseText.setLocation(15, 135);
+        responseText.setLocation(15, 235);
         responseText.setSize(200, 16);
         responseText.setFont(font);
         frame.add(responseText);
@@ -59,12 +59,12 @@ public class GUI {
         JTextArea response = new JTextArea();
         response.setEditable(false);
         response.setLineWrap(true);
-        response.setLocation(15, 155);
+        response.setLocation(15, 255);
         response.setSize(350, 400);
         frame.add(response);
 
         JLabel headersText = new JLabel("Headers:");
-        headersText.setLocation(400, 135);
+        headersText.setLocation(400, 235);
         headersText.setSize(200, 16);
         headersText.setFont(font);
         frame.add(headersText);
@@ -72,9 +72,21 @@ public class GUI {
         JTextArea headers = new JTextArea();
         headers.setEditable(false);
         headers.setLineWrap(false);
-        headers.setLocation(400, 155);
+        headers.setLocation(400, 255);
         headers.setSize(350, 400);
         frame.add(headers);
+
+        JLabel res = new JLabel("Response Code: ");
+        res.setLocation(15, 190);
+        res.setSize(140, 16);
+        res.setFont(font);
+        frame.add(res);
+
+        JLabel resResult = new JLabel();
+        resResult.setLocation(145, 190);
+        resResult.setSize(140, 16);
+        resResult.setFont(font);
+        frame.add(resResult);
 
         sendRequest.addActionListener(new ActionListener() {
             @Override
@@ -92,6 +104,8 @@ public class GUI {
                     } catch (IOException ex) {
                         throw new RuntimeException(ex);
                     }
+
+
 
                     System.out.println(responseCode);
 
