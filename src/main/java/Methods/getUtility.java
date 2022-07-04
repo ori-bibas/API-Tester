@@ -2,7 +2,6 @@ package Methods;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -41,16 +40,17 @@ public class getUtility {
                 reader.close();
             }
 
-            System.out.println(responseContent.toString());
-
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
+        return responseContent.toString();
+    }
 
-        return "";
+    public int getResponseCode() throws IOException {
+        return connection.getResponseCode();
     }
 
 }

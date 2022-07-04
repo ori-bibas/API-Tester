@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class GUI {
 
@@ -41,19 +42,39 @@ public class GUI {
         // Text area for user to insert link
         JTextArea linkText = new JTextArea();
         linkText.setLocation(280, 16);
-        linkText.setSize(400, 20);
+        linkText.setSize(400, 17);
         frame.add(linkText);
 
         JButton sendRequest = new JButton("Send");
         sendRequest.setSize(75, 35);
-        sendRequest.setLocation(400, 100);
+        sendRequest.setLocation(700, 10);
         frame.add(sendRequest);
+
+        JLabel responseText = new JLabel("Response:");
+        responseText.setLocation(15, 135);
+        responseText.setSize(200, 16);
+        responseText.setFont(font);
+        frame.add(responseText);
 
         JTextArea response = new JTextArea();
         response.setEditable(false);
-        response.setLocation(10, 200);
-        response.setSize(300, 300);
+        response.setLineWrap(true);
+        response.setLocation(15, 155);
+        response.setSize(350, 400);
         frame.add(response);
+
+        JLabel headersText = new JLabel("Headers:");
+        headersText.setLocation(400, 135);
+        headersText.setSize(200, 16);
+        headersText.setFont(font);
+        frame.add(headersText);
+
+        JTextArea headers = new JTextArea();
+        headers.setEditable(false);
+        headers.setLineWrap(false);
+        headers.setLocation(400, 155);
+        headers.setSize(350, 400);
+        frame.add(headers);
 
         sendRequest.addActionListener(new ActionListener() {
             @Override
@@ -62,8 +83,18 @@ public class GUI {
                 String option = jComboBox.getSelectedItem().toString();
 
                 if(option.equals("GET")) {
+
                     getUtility util = new getUtility();
-                    util.retrieveResponse(linkText.getText());
+                    String result = util.retrieveResponse(linkText.getText());
+                    int responseCode;
+                    try {
+                        responseCode = util.getResponseCode();
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+
+                    System.out.println(responseCode);
+
                 }
 
 
