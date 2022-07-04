@@ -98,6 +98,8 @@ public class GUI {
 
                     getUtility util = new getUtility();
                     String result = util.retrieveResponse(linkText.getText());
+                    util.getHeaders();
+                    String headersText = util.buildFormattedString();
                     int responseCode;
                     try {
                         responseCode = util.getResponseCode();
@@ -105,7 +107,17 @@ public class GUI {
                         throw new RuntimeException(ex);
                     }
 
-
+                    if(responseCode < 299) {
+                        response.setText(result);
+                        resResult.setText(String.valueOf(responseCode));
+                        resResult.setForeground(Color.GREEN);
+                        headers.setText(headersText);
+                    }
+                    else if(responseCode >= 300) {
+                        resResult.setText(String.valueOf(responseCode));
+                        resResult.setForeground(Color.RED);
+                        headers.setText(headersText);
+                    }
 
                     System.out.println(responseCode);
 

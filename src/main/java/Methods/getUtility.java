@@ -10,6 +10,7 @@ import java.net.URL;
 public class getUtility {
 
     private static HttpURLConnection connection;
+    public Headers headers;
 
     public String retrieveResponse(String link) {
 
@@ -52,5 +53,29 @@ public class getUtility {
     public int getResponseCode() throws IOException {
         return connection.getResponseCode();
     }
+
+    public void getHeaders() {
+
+        headers = new Headers();
+
+        headers.setContentLength(connection.getHeaderField("Content-Length"));
+        headers.setContentType(connection.getHeaderField("Content-Type"));
+        headers.setKeepAlive(connection.getHeaderField("Keep-Alive"));
+        headers.setDate(connection.getHeaderField("Date"));
+        headers.setConnection(connection.getHeaderField("Connection"));
+
+    }
+
+    public String buildFormattedString() {
+
+        String result = "Content-Type: " + headers.getContentType() + "\n\n"
+                        + "Content-Length: " + headers.getContentLength() + "\n\n"
+                        + "Date: " + headers.getDate() + "\n\n"
+                        + "Keep-Alive: " + headers.getKeepAlive() + "\n\n"
+                        + "Connection: " + headers.getConnection();
+
+        return result;
+    }
+
 
 }
