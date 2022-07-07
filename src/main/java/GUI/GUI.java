@@ -1,6 +1,8 @@
 package GUI;
 
 import Methods.*;
+import org.json.JSONObject;
+import org.json.simple.parser.ParseException;
 
 import javax.swing.*;
 import java.awt.*;
