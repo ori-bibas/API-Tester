@@ -99,9 +99,14 @@ public class GUI {
                 if(option.equals("GET")) {
 
                     getUtility util = new getUtility();
-                    String result = util.retrieveResponse(linkText.getText());
-                    util.getHeaders();
-                    String headersText = util.buildFormattedString();
+                    String result;
+                    try {
+                       result = util.run(linkText.getText());
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    } catch (ParseException ex) {
+                        throw new RuntimeException(ex);
+                    }
                     int responseCode;
                     try {
                         responseCode = util.getResponseCode();
@@ -113,15 +118,11 @@ public class GUI {
                         response.setText(result);
                         resResult.setText(String.valueOf(responseCode));
                         resResult.setForeground(Color.GREEN);
-                        headers.setText(headersText);
                     }
                     else if(responseCode >= 300) {
                         resResult.setText(String.valueOf(responseCode));
                         resResult.setForeground(Color.RED);
-                        headers.setText(headersText);
                     }
-
-                    System.out.println(responseCode);
 
                 }
 
