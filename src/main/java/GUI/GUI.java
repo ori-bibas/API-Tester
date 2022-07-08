@@ -71,9 +71,8 @@ public class GUI {
         headersText.setFont(font);
         frame.add(headersText);
 
-        JTextArea headers = new JTextArea();
+        JEditorPane headers = new JEditorPane("text/html", "");
         headers.setEditable(false);
-        headers.setLineWrap(false);
         headers.setLocation(400, 255);
         headers.setSize(350, 400);
         frame.add(headers);
@@ -116,6 +115,7 @@ public class GUI {
 
                     if(responseCode < 299) {
                         response.setText(result);
+                        headers.setText(util.htmlFormattedHeaders());
                         resResult.setText(String.valueOf(responseCode));
                         resResult.setForeground(Color.GREEN);
                     }

@@ -75,4 +75,13 @@ public class getUtility {
         return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(mapper.readTree(json));
     }
 
+    public String htmlFormattedHeaders() {
+
+        String result = "<b>Content-Type: </b>" + headers.getContentType() + "<br><b>Content-Length: </b>" +
+                headers.getContentLength() + "<br><b>Connection: </b>" + headers.getConnection() +
+                "<br><b>Date: </b>" + headers.getDate() + "<br><b>Keep-Alive: </b>" + headers.getKeepAlive();
+
+        return result;
+    }
+
 }
