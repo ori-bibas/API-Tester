@@ -24,11 +24,12 @@ public class getUtility {
         String contentType = headers.getContentType();
 
         // If the response content is JSON:
-        if(contentType.equals("application/json")) {
-            String response = jsonResponse();
-            return response;
+        if(contentType != null) {
+            if (contentType.equals("application/json")) {
+                String response = jsonResponse();
+                return response;
+            }
         }
-
         return "";
     }
 

@@ -96,6 +96,9 @@ public class GUI {
 
                 String option = jComboBox.getSelectedItem().toString();
 
+                response.setText("");
+                headers.setText("");
+
                 if(option.equals("GET")) {
 
                     getUtility util = new getUtility();
