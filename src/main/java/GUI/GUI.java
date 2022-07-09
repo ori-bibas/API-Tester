@@ -5,6 +5,8 @@ import org.json.simple.parser.ParseException;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -139,6 +141,24 @@ public class GUI {
                 }
 
 
+            }
+        });
+
+        copyResponse.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                StringSelection stringSelection = new StringSelection (response.getText());
+                Clipboard clipboard = Toolkit.getDefaultToolkit ().getSystemClipboard ();
+                clipboard.setContents (stringSelection, null);
+            }
+        });
+
+        copyHeaders.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                StringSelection stringSelection = new StringSelection (headers.getText());
+                Clipboard clipboard = Toolkit.getDefaultToolkit ().getSystemClipboard ();
+                clipboard.setContents (stringSelection, null);
             }
         });
 
