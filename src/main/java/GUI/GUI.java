@@ -147,18 +147,18 @@ public class GUI {
         copyResponse.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                StringSelection stringSelection = new StringSelection (response.getText());
-                Clipboard clipboard = Toolkit.getDefaultToolkit ().getSystemClipboard ();
-                clipboard.setContents (stringSelection, null);
+                StringSelection stringSelection = new StringSelection(response.getText());
+                Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard ();
+                clipboard.setContents(stringSelection, null);
             }
         });
 
         copyHeaders.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                StringSelection stringSelection = new StringSelection (headers.getText());
-                Clipboard clipboard = Toolkit.getDefaultToolkit ().getSystemClipboard ();
-                clipboard.setContents (stringSelection, null);
+                StringSelection stringSelection = new StringSelection(headers.getText());
+                Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard ();
+                clipboard.setContents(stringSelection, null);
             }
         });
 
