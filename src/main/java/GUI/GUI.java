@@ -5,6 +5,7 @@ import org.json.JSONObject;
 import org.json.simple.parser.ParseException;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -61,9 +62,9 @@ public class GUI {
         JTextArea response = new JTextArea();
         response.setEditable(false);
         response.setLineWrap(true);
-        response.setLocation(15, 255);
-        response.setSize(350, 400);
-        frame.add(response);
+        JScrollPane responseScroll = new JScrollPane(response, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        responseScroll.setBounds(15, 255, 350, 400);
+        frame.add(responseScroll);
 
         JLabel headersText = new JLabel("Headers:");
         headersText.setLocation(400, 235);
@@ -73,9 +74,9 @@ public class GUI {
 
         JEditorPane headers = new JEditorPane("text/html", "");
         headers.setEditable(false);
-        headers.setLocation(400, 255);
-        headers.setSize(350, 400);
-        frame.add(headers);
+        JScrollPane headersScroll = new JScrollPane(headers, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        headersScroll.setBounds(400, 255, 350, 400);
+        frame.add(headersScroll);
 
         JLabel res = new JLabel("Response Code: ");
         res.setLocation(15, 190);
