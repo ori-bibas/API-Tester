@@ -1,11 +1,9 @@
 package GUI;
 
 import Methods.*;
-import org.json.JSONObject;
 import org.json.simple.parser.ParseException;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
