@@ -34,7 +34,7 @@ public class GUI {
         frame.add(jComboBox);
 
         // Text that says "Link: " right before text area to insert link
-        JLabel link = new JLabel("Link: ");
+        JLabel link = new JLabel("URL: ");
         link.setLocation(230, 17);
         link.setSize(200, 16);
         link.setFont(font);
@@ -64,6 +64,11 @@ public class GUI {
         responseScroll.setBounds(15, 255, 350, 400);
         frame.add(responseScroll);
 
+        JButton copyResponse = new JButton("Copy Text");
+        copyResponse.setSize(75, 35);
+        copyResponse.setLocation(293, 223);
+        frame.add(copyResponse);
+
         JLabel headersText = new JLabel("Headers:");
         headersText.setLocation(400, 235);
         headersText.setSize(200, 16);
@@ -75,6 +80,11 @@ public class GUI {
         JScrollPane headersScroll = new JScrollPane(headers, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         headersScroll.setBounds(400, 255, 350, 400);
         frame.add(headersScroll);
+
+        JButton copyHeaders = new JButton("Copy Text");
+        copyHeaders.setSize(75, 35);
+        copyHeaders.setLocation(678, 223);
+        frame.add(copyHeaders);
 
         JLabel res = new JLabel("Response Code: ");
         res.setLocation(15, 190);
