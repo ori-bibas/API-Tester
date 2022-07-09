@@ -24,11 +24,12 @@ public class getUtility {
         String contentType = headers.getContentType();
 
         // If the response content is JSON:
-        if(contentType.equals("application/json")) {
-            String response = jsonResponse();
-            return response;
+        if(contentType != null) {
+            if (contentType.equals("application/json")) {
+                String response = jsonResponse();
+                return response;
+            }
         }
-
         return "";
     }
 
@@ -73,6 +74,15 @@ public class getUtility {
     String beautify(String json) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(mapper.readTree(json));
+    }
+
+    public String htmlFormattedHeaders() {
+
+        String result = "<b>Content-Type: </b>" + headers.getContentType() + "<br><b>Content-Length: </b>" +
+                headers.getContentLength() + "<br><b>Connection: </b>" + headers.getConnection() +
+                "<br><b>Date: </b>" + headers.getDate() + "<br><b>Keep-Alive: </b>" + headers.getKeepAlive();
+
+        return result;
     }
 
 }
