@@ -58,8 +58,6 @@ public class getUtility {
 
     public String jsonResponse() throws IOException, ParseException {
 
-        JSONParser jsonParser = new JSONParser();
-
         BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
         StringBuffer response = new StringBuffer();
         String inputLine;

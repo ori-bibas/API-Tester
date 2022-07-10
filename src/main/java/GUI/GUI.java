@@ -113,6 +113,7 @@ public class GUI {
 
                     getUtility util = new getUtility();
                     String result;
+
                     try {
                        result = util.run(linkText.getText());
                     } catch (IOException ex) {
@@ -120,6 +121,7 @@ public class GUI {
                     } catch (ParseException ex) {
                         throw new RuntimeException(ex);
                     }
+
                     int responseCode;
                     try {
                         responseCode = util.getResponseCode();
@@ -137,6 +139,12 @@ public class GUI {
                         resResult.setText(String.valueOf(responseCode));
                         resResult.setForeground(Color.RED);
                     }
+                }
+
+                if(option.equals("POST")) {
+
+                    postUtility util = new postUtility();
+
 
                 }
 
