@@ -29,7 +29,7 @@ public class GUI {
         frame.setLayout(null);
 
         // Options for HTTP Method
-        String[] httpOptions = {"GET"};
+        String[] httpOptions = {"GET", "POST"};
         JComboBox<String> jComboBox = new JComboBox<>(httpOptions);
         jComboBox.setLocation(10, 10);
         jComboBox.setSize(200, 32);
