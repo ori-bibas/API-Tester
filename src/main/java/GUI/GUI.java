@@ -18,7 +18,10 @@ public class GUI {
     private int height = 800;
     private Font font = new Font("Proxima Nova", Font.PLAIN, 16);
 
-    public GUI() { frame = new JFrame(); }
+    public GUI() {
+        frame = new JFrame();
+        setupGUI();
+    }
 
     public void setupGUI() {
 
@@ -100,6 +103,19 @@ public class GUI {
         resResult.setFont(font);
         frame.add(resResult);
 
+        JLabel postText = new JLabel("JSON Content: ");
+        postText.setLocation(15, 75);
+        postText.setSize(140, 16);
+        postText.setFont(font);
+        frame.add(postText);
+
+        JTextArea jsonContent = new JTextArea("Insert JSON text here when using the POST request.");
+        jsonContent.setEditable(false);
+        jsonContent.setLineWrap(true);
+        JScrollPane scroll = new JScrollPane(jsonContent, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scroll.setBounds(15, 95, 350, 170);
+        frame.add(scroll);
+
         sendRequest.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -144,6 +160,28 @@ public class GUI {
                 if(option.equals("POST")) {
 
                     postUtility util = new postUtility();
+                    int responseCode;
+                    String result;
+
+                    try {
+                        result = util.run(linkText.getText(), jsonContent.getText());
+                        responseCode = util.getResponseCode();
+                        //headers.setText(util.htmlFormattedHeaders());
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    } catch (ParseException ex) {
+                        throw new RuntimeException(ex);
+                    }
+
+                    if(responseCode < 299) {
+                        response.setText(result);
+                        resResult.setText(String.valueOf(responseCode));
+                        resResult.setForeground(Color.GREEN);
+                    }
+                    else if(responseCode >= 300) {
+                        resResult.setText(String.valueOf(responseCode));
+                        resResult.setForeground(Color.RED);
+                    }
 
 
                 }
@@ -167,6 +205,25 @@ public class GUI {
                 StringSelection stringSelection = new StringSelection(headers.getText());
                 Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard ();
                 clipboard.setContents(stringSelection, null);
+            }
+        });
+
+        jComboBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                String currentChoice = jComboBox.getSelectedItem().toString();
+
+                if(currentChoice.equals("GET")) {
+                    jsonContent.setText("Insert JSON text here when using the POST request.");
+                    jsonContent.setEditable(false);
+                }
+
+                if(currentChoice.equals("POST")) {
+                    jsonContent.setText("");
+                    jsonContent.setEditable(true);
+                }
+
             }
         });
 
