@@ -15,10 +15,13 @@ public class GUI {
 
     public JFrame frame;
     private int width = 780;
-    private int height = 700;
+    private int height = 800;
     private Font font = new Font("Proxima Nova", Font.PLAIN, 16);
 
-    public GUI() { frame = new JFrame(); }
+    public GUI() {
+        frame = new JFrame();
+        setupGUI();
+    }
 
     public void setupGUI() {
 
@@ -29,7 +32,7 @@ public class GUI {
         frame.setLayout(null);
 
         // Options for HTTP Method
-        String[] httpOptions = {"GET"};
+        String[] httpOptions = {"GET", "POST"};
         JComboBox<String> jComboBox = new JComboBox<>(httpOptions);
         jComboBox.setLocation(10, 10);
         jComboBox.setSize(200, 32);
@@ -54,7 +57,7 @@ public class GUI {
         frame.add(sendRequest);
 
         JLabel responseText = new JLabel("Response:");
-        responseText.setLocation(15, 235);
+        responseText.setLocation(15, 335);
         responseText.setSize(200, 16);
         responseText.setFont(font);
         frame.add(responseText);
@@ -63,16 +66,16 @@ public class GUI {
         response.setEditable(false);
         response.setLineWrap(true);
         JScrollPane responseScroll = new JScrollPane(response, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        responseScroll.setBounds(15, 255, 350, 400);
+        responseScroll.setBounds(15, 355, 350, 400);
         frame.add(responseScroll);
 
         JButton copyResponse = new JButton("Copy Text");
         copyResponse.setSize(75, 35);
-        copyResponse.setLocation(293, 223);
+        copyResponse.setLocation(293, 323);
         frame.add(copyResponse);
 
         JLabel headersText = new JLabel("Headers:");
-        headersText.setLocation(400, 235);
+        headersText.setLocation(400, 335);
         headersText.setSize(200, 16);
         headersText.setFont(font);
         frame.add(headersText);
@@ -80,25 +83,38 @@ public class GUI {
         JEditorPane headers = new JEditorPane("text/html", "");
         headers.setEditable(false);
         JScrollPane headersScroll = new JScrollPane(headers, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        headersScroll.setBounds(400, 255, 350, 400);
+        headersScroll.setBounds(400, 355, 350, 400);
         frame.add(headersScroll);
 
         JButton copyHeaders = new JButton("Copy Text");
         copyHeaders.setSize(75, 35);
-        copyHeaders.setLocation(678, 223);
+        copyHeaders.setLocation(678, 323);
         frame.add(copyHeaders);
 
         JLabel res = new JLabel("Response Code: ");
-        res.setLocation(15, 190);
+        res.setLocation(15, 290);
         res.setSize(140, 16);
         res.setFont(font);
         frame.add(res);
 
         JLabel resResult = new JLabel();
-        resResult.setLocation(145, 190);
+        resResult.setLocation(145, 290);
         resResult.setSize(140, 16);
         resResult.setFont(font);
         frame.add(resResult);
+
+        JLabel postText = new JLabel("JSON Content: ");
+        postText.setLocation(15, 75);
+        postText.setSize(140, 16);
+        postText.setFont(font);
+        frame.add(postText);
+
+        JTextArea jsonContent = new JTextArea("Insert JSON text here when using the POST request.");
+        jsonContent.setEditable(false);
+        jsonContent.setLineWrap(true);
+        JScrollPane scroll = new JScrollPane(jsonContent, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scroll.setBounds(15, 95, 350, 170);
+        frame.add(scroll);
 
         sendRequest.addActionListener(new ActionListener() {
             @Override
@@ -113,6 +129,7 @@ public class GUI {
 
                     getUtility util = new getUtility();
                     String result;
+
                     try {
                        result = util.run(linkText.getText());
                     } catch (IOException ex) {
@@ -120,6 +137,7 @@ public class GUI {
                     } catch (ParseException ex) {
                         throw new RuntimeException(ex);
                     }
+
                     int responseCode;
                     try {
                         responseCode = util.getResponseCode();
@@ -137,6 +155,34 @@ public class GUI {
                         resResult.setText(String.valueOf(responseCode));
                         resResult.setForeground(Color.RED);
                     }
+                }
+
+                if(option.equals("POST")) {
+
+                    postUtility util = new postUtility();
+                    int responseCode;
+                    String result;
+
+                    try {
+                        result = util.run(linkText.getText(), jsonContent.getText());
+                        responseCode = util.getResponseCode();
+                        //headers.setText(util.htmlFormattedHeaders());
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    } catch (ParseException ex) {
+                        throw new RuntimeException(ex);
+                    }
+
+                    if(responseCode < 299) {
+                        response.setText(result);
+                        resResult.setText(String.valueOf(responseCode));
+                        resResult.setForeground(Color.GREEN);
+                    }
+                    else if(responseCode >= 300) {
+                        resResult.setText(String.valueOf(responseCode));
+                        resResult.setForeground(Color.RED);
+                    }
+
 
                 }
 
@@ -159,6 +205,25 @@ public class GUI {
                 StringSelection stringSelection = new StringSelection(headers.getText());
                 Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard ();
                 clipboard.setContents(stringSelection, null);
+            }
+        });
+
+        jComboBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                String currentChoice = jComboBox.getSelectedItem().toString();
+
+                if(currentChoice.equals("GET")) {
+                    jsonContent.setText("Insert JSON text here when using the POST request.");
+                    jsonContent.setEditable(false);
+                }
+
+                if(currentChoice.equals("POST")) {
+                    jsonContent.setText("");
+                    jsonContent.setEditable(true);
+                }
+
             }
         });
 

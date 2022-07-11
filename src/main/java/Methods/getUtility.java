@@ -18,8 +18,6 @@ public class getUtility {
     public String run(String link) throws IOException, ParseException {
 
         startConnection(link);
-
-        int responseCode = getResponseCode();
         getHeaders();
         String contentType = headers.getContentType();
 
@@ -57,8 +55,6 @@ public class getUtility {
     }
 
     public String jsonResponse() throws IOException, ParseException {
-
-        JSONParser jsonParser = new JSONParser();
 
         BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
         StringBuffer response = new StringBuffer();
