@@ -48,4 +48,8 @@
         <maven.compiler.target>17</maven.compiler.target>
     </properties>
 
+    <build>
+        <finalName>apitester</finalName>
+    </build>
+
 </project>
