@@ -12,7 +12,7 @@ import java.net.URL;
 public class postUtility extends getUtility {
 
     private HttpURLConnection connection;
-    private Headers headers;
+    public Headers headers = new Headers();
 
     public String run(String link, String content) throws IOException, ParseException {
 
@@ -23,6 +23,8 @@ public class postUtility extends getUtility {
             byte[] input = content.getBytes("utf-8");
             os.write(input, 0, input.length);
         }
+
+        getHeaders(headers, connection);
 
         int responseCode = getResponseCode();
         if(responseCode < 299) {

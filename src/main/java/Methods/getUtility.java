@@ -1,7 +1,6 @@
 package Methods;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.io.BufferedReader;
@@ -13,12 +12,12 @@ import java.net.URL;
 public class getUtility {
 
     private HttpURLConnection connection;
-    private Headers headers;
+    public Headers headers = new Headers();
 
     public String run(String link) throws IOException, ParseException {
 
         startConnection(link);
-        getHeaders();
+        getHeaders(headers, connection);
         String contentType = headers.getContentType();
 
         // If the response content is JSON:
@@ -43,9 +42,7 @@ public class getUtility {
         return connection.getResponseCode();
     }
 
-    public void getHeaders() {
-
-        headers = new Headers();
+    public void getHeaders(Headers headers, HttpURLConnection connection) {
 
         headers.setContentLength(connection.getHeaderField("Content-Length"));
         headers.setContentType(connection.getHeaderField("Content-Type"));
@@ -72,7 +69,7 @@ public class getUtility {
         return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(mapper.readTree(json));
     }
 
-    public String htmlFormattedHeaders() {
+    public String htmlFormattedHeaders(Headers headers) {
 
         String result = "<b>Content-Type: </b>" + headers.getContentType() + "<br><b>Content-Length: </b>" +
                 headers.getContentLength() + "<br><b>Connection: </b>" + headers.getConnection() +

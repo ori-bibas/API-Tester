@@ -147,7 +147,7 @@ public class GUI {
 
                     if(responseCode < 299) {
                         response.setText(result);
-                        headers.setText(util.htmlFormattedHeaders());
+                        headers.setText(util.htmlFormattedHeaders(util.headers));
                         resResult.setText(String.valueOf(responseCode));
                         resResult.setForeground(Color.GREEN);
                     }
@@ -166,7 +166,6 @@ public class GUI {
                     try {
                         result = util.run(linkText.getText(), jsonContent.getText());
                         responseCode = util.getResponseCode();
-                        //headers.setText(util.htmlFormattedHeaders());
                     } catch (IOException ex) {
                         throw new RuntimeException(ex);
                     } catch (ParseException ex) {
@@ -176,6 +175,7 @@ public class GUI {
                     if(responseCode < 299) {
                         response.setText(result);
                         resResult.setText(String.valueOf(responseCode));
+                        headers.setText(util.htmlFormattedHeaders(util.headers));
                         resResult.setForeground(Color.GREEN);
                     }
                     else if(responseCode >= 300) {
