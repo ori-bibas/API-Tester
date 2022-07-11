@@ -217,11 +217,17 @@ public class GUI {
                 if(currentChoice.equals("GET")) {
                     jsonContent.setText("Insert JSON text here when using the POST request.");
                     jsonContent.setEditable(false);
+                    response.setText("");
+                    headers.setText("");
+                    resResult.setText("");
                 }
 
                 if(currentChoice.equals("POST")) {
                     jsonContent.setText("");
                     jsonContent.setEditable(true);
+                    response.setText("");
+                    headers.setText("");
+                    resResult.setText("");
                 }
 
             }
