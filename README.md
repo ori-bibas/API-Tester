@@ -18,7 +18,7 @@ Alternatively, you can run the main method in ```/src/main/java/GUI/Control.java
 ## GET Request
 
 To test a GET endpoint, make sure the dropdown is set to GET, insert a URL, and
-click send. Here is an example test of me using a REST API I've created, that can be 
+click send. Here is an example test of me using a REST API I've created and is running on my local machine, that can be 
 found [Here](https://github.com/ori-bibas/randomperson). 
 
 ![img_1.png](src/main/resources/img_1.png)
