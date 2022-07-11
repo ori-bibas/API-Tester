@@ -21,7 +21,7 @@ To test a GET endpoint, make sure the dropdown is set to GET, insert a URL, and
 click send. Here is an example test of me using a REST API I've created and is running on my local machine, that can be 
 found [Here](https://github.com/ori-bibas/randomperson). 
 
-<img src="src/main/resources/img_1.png"  width="300" height="300">
+<img src="src/main/resources/img_1.png"  width="400" height="400">
 
 
 After typing in the URL of the endpoint and clicking send, you will get returned to you:
@@ -37,7 +37,7 @@ of JSON, as the "Accept" request header is auto-set to "application/json".
 This app also expects a JSON return, too. Here is an example test of me using 
 the REST API at [Reqres](https://reqres.in/).
 
-<img src="src/main/resources/img_2.png"  width="300" height="300">
+<img src="src/main/resources/img_2.png"  width="400" height="400">
 
 Similar to the GET request, you will get the response code, response body, and
 some headers returned. 
