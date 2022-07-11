@@ -18,8 +18,6 @@ public class getUtility {
     public String run(String link) throws IOException, ParseException {
 
         startConnection(link);
-
-        int responseCode = getResponseCode();
         getHeaders();
         String contentType = headers.getContentType();
 
